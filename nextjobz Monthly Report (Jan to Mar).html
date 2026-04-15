@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nextjobz — Monthly Growth Report · Jan–Mar 2026</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #F0F2F8;
+    --surface: #FFFFFF;
+    --surface2: #E8EBF4;
+    --border: rgba(0,0,0,0.08);
+    --accent: #4F35C2;
+    --accent2: #0A9E6E;
+    --accent3: #D94040;
+    --accent4: #C47D00;
+    --text: #111827;
+    --muted: #6B7280;
+    --jan: #5B3FD4;
+    --feb: #D94040;
+    --mar: #0A9E6E;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  .header {
+    background: linear-gradient(135deg, #1A1A4E 0%, #2A1F6E 50%, #1A1A4E 100%);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding: 40px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(91,63,212,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(10,158,110,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+  .logo {
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+  }
+  .logo span { color: #4DFFC4; }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .header-title {
+    font-family: Arial, sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+    color: #FFFFFF;
+  }
+  .header-title .highlight { color: var(--accent2); }
+  .header-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  .month-tabs {
+    display: flex;
+    gap: 8px;
+  }
+  .tab {
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: default;
+  }
+  .tab.jan { border-color: rgba(255,255,255,0.5); color: #FFFFFF; background: rgba(255,255,255,0.12); }
+  .tab.feb { border-color: rgba(255,255,255,0.5); color: #FFFFFF; background: rgba(255,255,255,0.12); }
+  .tab.mar { border-color: rgba(255,255,255,0.5); color: #FFFFFF; background: rgba(255,255,255,0.12); }
+
+  /* ─── LAYOUT ─────────────────────────────────────────── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 40px 48px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #4F35C2;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── KPI CARDS ──────────────────────────────────────── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+  .kpi-card.jan-card::before { background: var(--jan); }
+  .kpi-card.feb-card::before { background: var(--feb); }
+  .kpi-card.mar-card::before { background: var(--mar); }
+  .kpi-month {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .kpi-card.jan-card .kpi-month { color: #5B3FD4; }
+  .kpi-card.feb-card .kpi-month { color: #D94040; }
+  .kpi-card.mar-card .kpi-month { color: #0A9E6E; }
+  .kpi-primary {
+    font-family: Arial, sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 4px;
+  }
+  .kpi-label { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  .kpi-row {
+    display: flex;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .kpi-sub { flex: 1; }
+  .kpi-sub-val {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .kpi-sub-label { color: var(--muted); font-size: 11px; }
+  .delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+  .delta.up { background: rgba(10,158,110,0.1); color: #0A9E6E; }
+  .delta.down { background: rgba(217,64,64,0.1); color: #D94040; }
+
+  /* ─── INSIGHT BOX ─────────────────────────────────────── */
+  .insight {
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .insight-title {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #3D28A0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .insight-icon { font-size: 16px; }
+  .insight p {
+    color: #374151;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .insight p:last-child { margin-bottom: 0; }
+  .hi { color: #0A9E6E; font-weight: 500; }
+  .hi2 { color: #3D28A0; font-weight: 500; }
+  .hi3 { color: #C47D00; font-weight: 500; }
+
+  /* ─── CHART CARDS ─────────────────────────────────────── */
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .chart-title {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .chart-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .chart-wrap { position: relative; height: 260px; margin-top: 20px; }
+
+  /* ─── TWO COL ─────────────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  /* ─── CHANNEL TABLE ───────────────────────────────────── */
+  .channel-table { width: 100%; border-collapse: collapse; }
+  .channel-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .channel-table td {
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .channel-table tr:last-child td { border-bottom: none; }
+  .ch-name { display: flex; align-items: center; gap: 8px; }
+  .ch-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .ch-num { font-family: Arial, sans-serif; font-weight: 600; text-align: right; }
+  .bar-wrap { background: rgba(0,0,0,0.06); border-radius: 4px; height: 5px; overflow: hidden; margin-top: 4px; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  /* ─── TRAFFIC SOURCE ─────────────────────────────────── */
+  .source-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .source-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .source-label { font-size: 12px; color: var(--text); min-width: 120px; }
+  .source-bars { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+  .source-bar { height: 6px; border-radius: 3px; position: relative; }
+  .source-val { font-size: 11px; font-weight: 600; font-family: Arial, sans-serif; min-width: 40px; text-align: right; color: var(--muted); }
+
+  /* ─── FOOTER ──────────────────────────────────────────── */
+  .footer {
+    background: #FFFFFF;
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  /* ─── SUMMARY ROW ─────────────────────────────────────── */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .stat-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .stat-pill-val {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #0A9E6E;
+  }
+  .stat-pill-label { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — MOBILE FIRST
+  ═══════════════════════════════════════════════ */
+
+  /* Smooth scroll & better tap targets */
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  a, button { touch-action: manipulation; }
+
+  /* ── Metrics table: sticky first col + scroll ── */
+  .table-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0 0 12px 12px;
+  }
+  .table-scroll-wrap table { min-width: 580px; }
+  .table-scroll-wrap td:first-child,
+  .table-scroll-wrap th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: inherit;
+  }
+  .table-scroll-wrap thead th:first-child { background: #1A1A4E; }
+  .table-scroll-wrap tr:nth-child(odd) td:first-child  { background: #FFFFFF; }
+  .table-scroll-wrap tr:nth-child(even) td:first-child { background: #F8FAFF; }
+
+  /* Scroll hint label */
+  .scroll-hint {
+    display: none;
+    font-size: 11px;
+    color: #9CA3AF;
+    padding: 6px 16px 0;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+
+    /* ── Header ── */
+    .header { padding: 24px 20px 20px; }
+    .header-title { font-size: 22px; letter-spacing: -0.5px; }
+    .header-sub { font-size: 12px; margin-bottom: 16px; }
+    .header-top { margin-bottom: 16px; }
+    .logo { font-size: 18px; }
+    .badge { font-size: 10px; padding: 4px 10px; }
+    .month-tabs { flex-wrap: wrap; gap: 6px; }
+    .tab { font-size: 11px; padding: 5px 12px; }
+
+    /* ── Page padding ── */
+    .page { padding: 20px 16px; }
+
+    /* ── KPI grid: single column ── */
+    .kpi-grid { grid-template-columns: 1fr !important; gap: 12px; margin-bottom: 20px; }
+    .kpi-primary { font-size: 32px; }
+    .kpi-card { padding: 18px; }
+
+    /* ── Summary pills: 2-col ── */
+    .summary-row { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+    .stat-pill { padding: 12px 10px; }
+    .stat-pill-val { font-size: 18px; letter-spacing: -0.5px; }
+    .stat-pill-label { font-size: 10px; }
+
+    /* ── Two-col: stack ── */
+    .two-col { grid-template-columns: 1fr !important; gap: 16px; }
+
+    /* ── Charts: shorter on mobile ── */
+    .chart-wrap { height: 200px !important; }
+    .chart-card { padding: 16px; margin-bottom: 16px; }
+    .chart-title { font-size: 14px; }
+    .chart-header { flex-direction: column; gap: 10px; }
+    .legend { flex-wrap: wrap; gap: 8px; }
+
+    /* ── Insight box ── */
+    .insight { padding: 16px 18px; margin-bottom: 20px; }
+    .insight p { font-size: 12px; }
+    .insight-title { font-size: 13px; }
+
+    /* ── Section label ── */
+    .section-label { font-size: 9px; }
+
+    /* ── Metrics table scroll hint ── */
+    .scroll-hint { display: block; }
+
+    /* ── Source bars label ── */
+    .source-label { min-width: 90px; font-size: 11px; }
+    .source-val { font-size: 9px; min-width: 70px; }
+
+    /* ── Footer ── */
+    .footer { flex-direction: column; gap: 4px; text-align: center; padding: 16px 20px; font-size: 10px; }
+
+    /* ── Channel table on mobile ── */
+    .channel-table th, .channel-table td { font-size: 11px; padding: 8px 4px; }
+  }
+
+  @media (max-width: 400px) {
+    .header-title { font-size: 19px; }
+    .kpi-primary { font-size: 28px; }
+    .summary-row { grid-template-columns: 1fr 1fr; }
+    .stat-pill-val { font-size: 16px; }
+    .source-label { min-width: 75px; font-size: 10px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">next<span>jobz</span></div>
+    <div class="badge">Executive Report</div>
+  </div>
+  <div class="header-title">Monthly User Engagement &amp; <br><span class="highlight">Traffic Trend Report</span></div>
+  <div class="header-sub">Google Analytics · Nextjobz Web &amp; App · November 2025 – March 2026</div>
+  <div class="month-tabs">
+    <div class="tab" style="border-color:rgba(255,255,255,0.3);color:#FFFFFF;background:rgba(255,255,255,0.08)">Nov 2025</div>
+    <div class="tab" style="border-color:rgba(255,255,255,0.3);color:#FFFFFF;background:rgba(255,255,255,0.08)">Dec 2025</div>
+    <div class="tab jan">Jan 2026</div>
+    <div class="tab feb">Feb 2026</div>
+    <div class="tab mar">Mar 2026</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- METRICS TABLE + NOV/DEC -->
+  <div class="section-label">Complete Metrics · Nov 2025 – Mar 2026</div>
+  <!-- FEB vs MAR COMPARISON CARDS -->
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
+
+    <!-- FEB CARD -->
+    <div class="kpi-card feb-card">
+      <div class="kpi-month">February 2026</div>
+      <div class="kpi-primary">47,065</div>
+      <div class="kpi-label">Active Users</div>
+      <div class="kpi-row" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Jobseeker Reg.</div>
+            <div class="kpi-sub-val">6,299</div>
+          </div>
+          <span class="delta down">▼ 45% vs Jan</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Employer Reg.</div>
+            <div class="kpi-sub-val">61</div>
+          </div>
+          <span class="delta down">▼ 62% vs Jan</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Jobs Posted</div>
+            <div class="kpi-sub-val">365</div>
+          </div>
+          <span class="delta down">▼ 56% vs Jan</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Job Applications</div>
+            <div class="kpi-sub-val">3,387</div>
+          </div>
+          <span class="delta down">▼ 38% vs Jan</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Bounce Rate</div>
+            <div class="kpi-sub-val">32.5%</div>
+          </div>
+          <span class="delta down">▲ worse vs Jan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAR CARD -->
+    <div class="kpi-card mar-card">
+      <div class="kpi-month">March 2026</div>
+      <div class="kpi-primary">42,691</div>
+      <div class="kpi-label">Active Users</div>
+      <div class="kpi-row" style="flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Jobseeker Reg.</div>
+            <div class="kpi-sub-val">4,990</div>
+          </div>
+          <span class="delta down">▼ 21% vs Feb</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Employer Reg.</div>
+            <div class="kpi-sub-val">48</div>
+          </div>
+          <span class="delta down">▼ 21% vs Feb</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Jobs Posted</div>
+            <div class="kpi-sub-val">342</div>
+          </div>
+          <span class="delta down">▼ 6% vs Feb</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Job Applications</div>
+            <div class="kpi-sub-val">2,819</div>
+          </div>
+          <span class="delta down">▼ 17% vs Feb</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="kpi-sub-label">Bounce Rate</div>
+            <div class="kpi-sub-val">26.9%</div>
+          </div>
+          <span class="delta up">▼ improved vs Feb</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FULL METRICS TABLE -->
+  <div class="chart-card" style="margin-bottom:24px;padding:0;overflow:hidden;">
+    <div style="padding:20px 24px 12px;border-bottom:1px solid rgba(0,0,0,0.06);">
+      <div class="chart-title">Complete Platform Metrics — Nov 2025 to Mar 2026</div>
+      <div class="chart-subtitle">All key engagement and growth indicators across 5 months</div>
+    </div>
+    <div class="scroll-hint">← scroll to see all months →</div>
+    <div class="table-scroll-wrap">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:#1A1A4E;">
+          <th style="text-align:left;padding:12px 16px;color:#FFFFFF;font-weight:700;font-size:12px;white-space:nowrap;">Metric</th>
+          <th style="text-align:right;padding:12px 14px;color:#CBD5E1;font-weight:600;font-size:12px;">Nov 2025</th>
+          <th style="text-align:right;padding:12px 14px;color:#CBD5E1;font-weight:600;font-size:12px;">Dec 2025</th>
+          <th style="text-align:right;padding:12px 14px;color:#A5B4FC;font-weight:700;font-size:12px;">Jan 2026</th>
+          <th style="text-align:right;padding:12px 14px;color:#FCA5A5;font-weight:700;font-size:12px;">Feb 2026</th>
+          <th style="text-align:right;padding:12px 14px;color:#6EE7B7;font-weight:700;font-size:12px;">Mar 2026</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#FFFFFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Total Employer Registration</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">102</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">71</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">161 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">61</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#6B7280;font-weight:500;">48</td>
+        </tr>
+        <tr style="background:#F8FAFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Total Jobseeker Registration</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">1,232</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">2,602</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">11,391 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">6,299</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">4,990</td>
+        </tr>
+        <tr style="background:#FFFFFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Organic CV Created (0–50% completeness)</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">601</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">760</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">5,230 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">3,199</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">2,726</td>
+        </tr>
+        <tr style="background:#F8FAFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Organic CV Created (51–100% completeness)</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">631</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">1,743</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">6,161 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">3,100</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">2,264</td>
+        </tr>
+        <tr style="background:#FFFFFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Total Job Posted</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">209</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">270</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">837 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">365</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">342</td>
+        </tr>
+        <tr style="background:#F8FAFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Total Job Apply</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">81</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">394</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">5,443 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">3,387</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">2,819</td>
+        </tr>
+        <tr style="background:#FFFFFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;font-weight:600;">Active Users</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">5,821</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">11,753</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">81,953 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">47,065</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">42,691</td>
+        </tr>
+        <tr style="background:#F8FAFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;font-weight:600;">New Users</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">5,735</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">11,836</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#5B3FD4;">81,526 ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">39,033</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">36,103</td>
+        </tr>
+        <tr style="background:#FFFFFF;">
+          <td style="padding:11px 16px;color:#374151;border-bottom:1px solid #F1F5F9;">Avg Engagement Time / Active User</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#111827;font-weight:500;">5m 4s</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;font-weight:700;color:#2563EB;">7m 44s ★</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#5B3FD4;font-weight:500;">3m 31s</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#D94040;font-weight:500;">3m 31s</td>
+          <td style="padding:11px 14px;text-align:right;border-bottom:1px solid #F1F5F9;color:#0A9E6E;font-weight:500;">2m 52s</td>
+        </tr>
+        <tr style="background:#F8FAFF;">
+          <td style="padding:11px 16px;color:#374151;">Bounce Rate</td>
+          <td style="padding:11px 14px;text-align:right;color:#111827;font-weight:500;">24.9%</td>
+          <td style="padding:11px 14px;text-align:right;color:#D94040;font-weight:500;">36.5%</td>
+          <td style="padding:11px 14px;text-align:right;color:#5B3FD4;font-weight:500;">30.5%</td>
+          <td style="padding:11px 14px;text-align:right;color:#D94040;font-weight:500;">32.5%</td>
+          <td style="padding:11px 14px;text-align:right;font-weight:700;color:#0A9E6E;">26.9% ★</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="padding:10px 16px;font-size:11px;color:#9CA3AF;border-top:1px solid #F1F5F9;">
+      ★ Best value across the 5-month period &nbsp;·&nbsp; Purple = Jan peak &nbsp;·&nbsp; Green = Mar recovery
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px;">Jan–Mar KPI Cards</div>
+  <div class="kpi-grid">
+
+    <!-- JAN -->
+    <div class="kpi-card jan-card">
+      <div class="kpi-month">January 2026</div>
+      <div class="kpi-primary">81,953</div>
+      <div class="kpi-label">Peak Active Users (Day 19)</div>
+      <div class="kpi-row">
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">89,491</div>
+          <div class="kpi-sub-label">Total New Users</div>
+        </div>
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">127K</div>
+          <div class="kpi-sub-label">Total Sessions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEB -->
+    <div class="kpi-card feb-card">
+      <div class="kpi-month">February 2026</div>
+      <div class="kpi-primary">47,065</div>
+      <div class="kpi-label">Peak Active Users (Day 2)</div>
+      <div class="kpi-row">
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">38,037</div>
+          <div class="kpi-sub-label">Total New Users</div>
+          <span class="delta down">▼ 57% vs Jan</span>
+        </div>
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">70.6K</div>
+          <div class="kpi-sub-label">Total Sessions</div>
+          <span class="delta down">▼ 44% vs Jan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAR -->
+    <div class="kpi-card mar-card">
+      <div class="kpi-month">March 2026</div>
+      <div class="kpi-primary">42,691</div>
+      <div class="kpi-label">Peak Active Users</div>
+      <div class="kpi-row">
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">36,103</div>
+          <div class="kpi-sub-label">Total New Users</div>
+          <span class="delta down">▼ 7% vs Feb</span>
+        </div>
+        <div class="kpi-sub">
+          <div class="kpi-sub-val">4,990</div>
+          <div class="kpi-sub-label">Jobseeker Reg.</div>
+          <span class="delta down">▼ 21% vs Feb</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 3-MONTH SUMMARY PILLS -->
+  <div class="summary-row">
+    <div class="stat-pill">
+      <div class="stat-pill-val">196K+</div>
+      <div class="stat-pill-label">Total New Users (3 months)</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-val">255K+</div>
+      <div class="stat-pill-label">Total Sessions (3 months)</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-val">LinkedIn</div>
+      <div class="stat-pill-label">Top Traffic Source (all months)</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-pill-val">Direct</div>
+      <div class="stat-pill-label">Top Channel (all months)</div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE INSIGHT -->
+  <div class="insight">
+    <div class="insight-title"><span class="insight-icon">💡</span> Executive Insight — Jan to Mar 2026</div>
+    <p><span class="hi2">January 2026 was the breakout month</span> — the LinkedIn Recruiter launch on January 7 drove a 14× surge in new user registrations and pushed daily active users to a peak of <span class="hi">81,953</span>. This was a defining inflection point in platform awareness.</p>
+    <p><span class="hi3">February's cool-down is contextual, not structural.</span> Three converging factors explain the dip: (1) the Bangladesh National Election disrupted mid-month activity, (2) February had 2–3 fewer calendar days than January, and (3) Ramadan onset shortened active working hours. New user acquisition still remained <span class="hi">2× above pre-LinkedIn baseline</span> (Nov–Dec 2025).</p>
+    <p><span class="hi2">March full-month data confirms stabilisation</span>: 42,691 active users, 36,103 new users, 4,990 jobseeker registrations, and 342 jobs posted. Bounce rate improved to <span class="hi">26.9%</span> — the best of any month in the 5-month window — suggesting improving content relevance. <span class="hi">Focus for April</span>: leverage post-Eid hiring surge and activate the referral + lead magnet pipeline.</p>
+  </div>
+
+  <!-- MAIN CHART: Daily Active Users All 3 Months -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Daily Active Users — 3-Month Trend</div>
+        <div class="chart-subtitle">Day-by-day active user count, January through March 2026</div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="dot" style="background:var(--jan)"></div> Jan 2026</div>
+        <div class="legend-item"><div class="dot" style="background:var(--feb)"></div> Feb 2026</div>
+        <div class="legend-item"><div class="dot" style="background:var(--mar)"></div> Mar 2026</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="dailyActiveChart"></canvas>
+    </div>
+  </div>
+
+  <!-- TWO COL: New Users Chart + Channel Chart -->
+  <div class="two-col">
+
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">New User Acquisition</div>
+          <div class="chart-subtitle">Daily new users per month</div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="dot" style="background:var(--jan)"></div> Jan</div>
+          <div class="legend-item"><div class="dot" style="background:var(--feb)"></div> Feb</div>
+          <div class="legend-item"><div class="dot" style="background:var(--mar)"></div> Mar</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="newUsersChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Monthly Volume Comparison</div>
+          <div class="chart-subtitle">Active users vs new users by month</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="monthlyBarChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:24px"></div>
+
+  <!-- TRAFFIC CHANNELS -->
+  <div class="section-label">Acquisition Channels</div>
+  <div class="two-col">
+
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title" style="margin-bottom:4px">Channel Group — New Users</div>
+      <div class="chart-subtitle" style="margin-bottom:20px">First user primary channel, cumulative</div>
+      <table class="channel-table">
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th style="text-align:right">Jan</th>
+            <th style="text-align:right">Feb</th>
+            <th style="text-align:right">Mar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#7c5cfc"></div>Direct</div></td>
+            <td class="ch-num">45,691</td>
+            <td class="ch-num">23,326</td>
+            <td class="ch-num">18,171</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#00e5a0"></div>Organic Social</div></td>
+            <td class="ch-num">27,589</td>
+            <td class="ch-num">12,955</td>
+            <td class="ch-num">8,834</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#ffd166"></div>Paid Social</div></td>
+            <td class="ch-num">5,116</td>
+            <td class="ch-num">314</td>
+            <td class="ch-num">1,262</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#06b6d4"></div>Paid Other</div></td>
+            <td class="ch-num">—</td>
+            <td class="ch-num">302</td>
+            <td class="ch-num">3,285</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#f472b6"></div>Paid Search</div></td>
+            <td class="ch-num">—</td>
+            <td class="ch-num">2</td>
+            <td class="ch-num">1,418</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#a78bfa"></div>Organic Search</div></td>
+            <td class="ch-num">2,934</td>
+            <td class="ch-num">1,849</td>
+            <td class="ch-num">1,531</td>
+          </tr>
+          <tr>
+            <td><div class="ch-name"><div class="ch-dot" style="background:#94a3b8"></div>Referral</div></td>
+            <td class="ch-num">191</td>
+            <td class="ch-num">285</td>
+            <td class="ch-num">285</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title" style="margin-bottom:4px">Top Traffic Sources</div>
+      <div class="chart-subtitle" style="margin-bottom:20px">Sessions by referrer (top 6 per month combined)</div>
+      <div class="source-grid">
+
+        <div class="source-row">
+          <div class="source-label">linkedin.com</div>
+          <div class="source-bars">
+            <div class="source-bar" style="width:100%;background:rgba(91,63,212,0.7)"></div>
+            <div class="source-bar" style="width:62%;background:rgba(217,64,64,0.7)"></div>
+            <div class="source-bar" style="width:45%;background:rgba(10,158,110,0.7)"></div>
+          </div>
+          <div class="source-val" style="font-size:10px;color:var(--muted)">25.9k / 16.2k / 11.7k</div>
+        </div>
+
+        <div class="source-row">
+          <div class="source-label">google</div>
+          <div class="source-bars">
+            <div class="source-bar" style="width:29%;background:rgba(91,63,212,0.7)"></div>
+            <div class="source-bar" style="width:20%;background:rgba(217,64,64,0.7)"></div>
+            <div class="source-bar" style="width:19%;background:rgba(10,158,110,0.7)"></div>
+          </div>
+          <div class="source-val" style="font-size:10px;color:var(--muted)">7.4k / 5.3k / 4.8k</div>
+        </div>
+
+        <div class="source-row">
+          <div class="source-label">lnkd.in</div>
+          <div class="source-bars">
+            <div class="source-bar" style="width:33%;background:rgba(91,63,212,0.7)"></div>
+            <div class="source-bar" style="width:17%;background:rgba(217,64,64,0.7)"></div>
+            <div class="source-bar" style="width:12%;background:rgba(10,158,110,0.7)"></div>
+          </div>
+          <div class="source-val" style="font-size:10px;color:var(--muted)">8.6k / 4.5k / 3.0k</div>
+        </div>
+
+        <div class="source-row">
+          <div class="source-label">Facebook (all)</div>
+          <div class="source-bars">
+            <div class="source-bar" style="width:36%;background:rgba(91,63,212,0.7)"></div>
+            <div class="source-bar" style="width:15%;background:rgba(217,64,64,0.7)"></div>
+            <div class="source-bar" style="width:9%;background:rgba(10,158,110,0.7)"></div>
+          </div>
+          <div class="source-val" style="font-size:10px;color:var(--muted)">9.3k / 1.9k / 2.3k</div>
+        </div>
+
+        <div class="source-row">
+          <div class="source-label">google ads (an)</div>
+          <div class="source-bars">
+            <div class="source-bar" style="width:0%;background:rgba(91,63,212,0.7)"></div>
+            <div class="source-bar" style="width:12%;background:rgba(217,64,64,0.7)"></div>
+            <div class="source-bar" style="width:13%;background:rgba(10,158,110,0.7)"></div>
+          </div>
+          <div class="source-val" style="font-size:10px;color:var(--muted)">— / 304 / 3.3k</div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);padding-top:10px;margin-top:4px">
+          <div style="display:flex;gap:16px;font-size:11px;color:var(--muted)">
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:rgba(91,63,212,0.8);margin-right:4px"></span>Jan</span>
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:rgba(217,64,64,0.8);margin-right:4px"></span>Feb</span>
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:rgba(10,158,110,0.8);margin-right:4px"></span>Mar</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:24px"></div>
+
+  <!-- CHANNEL SESSIONS BAR CHART -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Session Channel Distribution</div>
+        <div class="chart-subtitle">Sessions by primary channel group across all three months</div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:240px">
+      <canvas id="channelChart"></canvas>
+    </div>
+  </div>
+
+  <!-- AD CAMPAIGNS NOTE -->
+  <div class="insight" style="margin-top:0">
+    <div class="insight-title"><span class="insight-icon">📢</span> Google Ads Activity — March 2026</div>
+    <p>March marked the <span class="hi">first significant Google Ads investment</span> on the platform. Two campaigns ran during the month: <span class="hi2">"Website Visit March 26"</span> (1,620 sessions) and <span class="hi2">"Eid-ul-Fitr AV Views till 22-3-26"</span> (8 sessions). Combined with paid search (1,418 new users) and paid other (3,285 new users), this signals a deliberate shift toward <span class="hi">paid acquisition diversification</span> beyond the LinkedIn-organic model. This is a positive channel diversification trend to watch in April.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Nextjobz · Monthly Growth Report · Nov 2025–Mar 2026 · Source: Google Analytics</span>
+  <span>Generated April 13, 2026</span>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────
+const janActive = [556,651,590,719,870,818,903,2887,5080,3808,3974,4952,4617,4890,4174,3569,3578,4168,4937,6851,4458,4082,3078,3268,3980,5446,4332,4228,4008,4461,3730];
+const febActive = [3045,3579,3989,2612,2640,1843,1813,2029,1839,2133,1607,1179,1252,1507,1940,2239,1992,2093,2029,1889,2249,2209,2067,2225,2242,1959,1752,2017];
+const marActive = [1783,2388,2524,2876,2589,2056,2096,2213,2172,2465,2700,2047,1674,2030,2137,2127,1473,1315,1179,928,713,853,994,1420,1317,1309,1441,784,203,64];
+
+const janNew = [435,561,458,550,689,635,705,2588,4591,3148,3137,3904,3510,3662,3051,2652,2551,2949,3631,5305,3209,2913,2231,2350,2888,4345,3189,3099,2888,3224,2478];
+const febNew = [1998,2548,2904,1778,1660,1196,1151,1242,1124,1318,1030,790,808,957,1205,1437,1292,1376,1230,1182,1434,1382,1297,1366,1435,1242,1215,1436];
+const marNew = [1214,1663,1693,2052,1808,1495,1444,1531,1492,1713,1981,1366,1187,1436,1487,1543,1027,972,843,667,543,615,673,985,880,931,993,468,120,12];
+
+// Common chart defaults
+const gridColor = 'rgba(0,0,0,0.07)';
+const tickColor = '#6B7280';
+
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: { 
+    backgroundColor: '#FFFFFF', borderColor: 'rgba(0,0,0,0.12)', borderWidth: 1,
+    titleColor: '#111827', bodyColor: '#4B5563', padding: 10,
+    callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString() }
+  }},
+  scales: {
+    x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
+    y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v } }
+  }
+};
+
+// ─── DAILY ACTIVE CHART ─────────────────────────────────────
+const maxDays = Math.max(janActive.length, febActive.length, marActive.length);
+const dayLabels = Array.from({length: maxDays}, (_, i) => `Day ${i+1}`);
+
+new Chart(document.getElementById('dailyActiveChart'), {
+  type: 'line',
+  data: {
+    labels: dayLabels,
+    datasets: [
+      { label: 'Jan 2026', data: janActive, borderColor: '#5B3FD4', backgroundColor: 'rgba(91,63,212,0.06)', borderWidth: 2, pointRadius: 0, tension: 0.4, fill: true },
+      { label: 'Feb 2026', data: febActive, borderColor: '#D94040', backgroundColor: 'rgba(217,64,64,0.06)', borderWidth: 2, pointRadius: 0, tension: 0.4, fill: true },
+      { label: 'Mar 2026', data: marActive, borderColor: '#0A9E6E', backgroundColor: 'rgba(10,158,110,0.06)', borderWidth: 2, pointRadius: 0, tension: 0.4, fill: true },
+    ]
+  },
+  options: { ...baseOpts, plugins: { ...baseOpts.plugins, legend: { display: false } } }
+});
+
+// ─── NEW USERS CHART ────────────────────────────────────────
+new Chart(document.getElementById('newUsersChart'), {
+  type: 'line',
+  data: {
+    labels: dayLabels,
+    datasets: [
+      { label: 'Jan', data: janNew, borderColor: '#5B3FD4', borderWidth: 2, pointRadius: 0, tension: 0.4 },
+      { label: 'Feb', data: febNew, borderColor: '#D94040', borderWidth: 2, pointRadius: 0, tension: 0.4 },
+      { label: 'Mar', data: marNew, borderColor: '#0A9E6E', borderWidth: 2, pointRadius: 0, tension: 0.4 },
+    ]
+  },
+  options: { ...baseOpts }
+});
+
+// ─── MONTHLY BAR CHART ──────────────────────────────────────
+new Chart(document.getElementById('monthlyBarChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan 2026', 'Feb 2026', 'Mar 2026'],
+    datasets: [
+      { label: 'Peak Daily Active', data: [81953, 47065, 47196], backgroundColor: ['rgba(91,63,212,0.85)','rgba(217,64,64,0.85)','rgba(10,158,110,0.85)'], borderRadius: 6 },
+      { label: 'Total New Users', data: [89491, 38037, 34834], backgroundColor: ['rgba(91,63,212,0.25)','rgba(217,64,64,0.25)','rgba(10,158,110,0.25)'], borderRadius: 6 },
+    ]
+  },
+  options: {
+    ...baseOpts,
+    plugins: {
+      ...baseOpts.plugins,
+      legend: { display: true, labels: { color: '#374151', font: { size: 10 }, boxWidth: 10, padding: 12 } }
+    }
+  }
+});
+
+// ─── CHANNEL SESSIONS CHART ─────────────────────────────────
+new Chart(document.getElementById('channelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Direct', 'Organic Social', 'Organic Search', 'Paid Social', 'Paid Other', 'Paid Search', 'Referral', 'Unassigned'],
+    datasets: [
+      { label: 'Jan 2026', data: [72988, 40371, 7562, 5434, 0, 0, 474, 548], backgroundColor: 'rgba(91,63,212,0.8)', borderRadius: 4 },
+      { label: 'Feb 2026', data: [41116, 22576, 5454, 352, 304, 2, 525, 292], backgroundColor: 'rgba(217,64,64,0.8)', borderRadius: 4 },
+      { label: 'Mar 2026', data: [30286, 15889, 4500, 1386, 3315, 1624, 521, 270], backgroundColor: 'rgba(10,158,110,0.8)', borderRadius: 4 },
+    ]
+  },
+  options: {
+    ...baseOpts,
+    plugins: {
+      ...baseOpts.plugins,
+      legend: { display: true, labels: { color: '#374151', font: { size: 10 }, boxWidth: 10, padding: 12 } }
+    }
+  }
+});
+</script>
+
+<script>
+  // Re-render charts on orientation change for mobile
+  window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+      if (window.Chart) {
+        Chart.helpers.each(Chart.instances, function(instance) {
+          instance.resize();
+        });
+      }
+    }, 300);
+  });
+</script>
+
+</body>
+</html>
