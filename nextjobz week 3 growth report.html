@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nextjobz — Weekly Growth Report · Week 3 · Apr 19–25, 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#5B21B6;
+  --purple-mid:#7C3AED;
+  --purple-light:#EDE9FE;
+  --purple-faint:#F5F3FF;
+  --green:#16A34A;
+  --green-dark:#14532D;
+  --green-light:#DCFCE7;
+  --red:#DC2626;
+  --red-light:#FEE2E2;
+  --gray-900:#111827;
+  --gray-700:#374151;
+  --gray-500:#6B7280;
+  --gray-200:#E5E7EB;
+  --gray-100:#F3F4F6;
+  --gray-50:#F9FAFB;
+  --white:#ffffff;
+  --radius:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--gray-50);color:var(--gray-900);line-height:1.6;min-width:320px}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a0533 0%,#2d0a6b 50%,#0d3b1f 100%);color:#fff;padding:2.5rem 1.5rem 2.5rem}
+.header-inner{max-width:900px;margin:0 auto}
+.logo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:.75rem}
+.logo{font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:-.5px}
+.logo span{color:#4ADE80}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.12em;padding:5px 13px;border-radius:20px;text-transform:uppercase}
+h1{font-size:clamp(1.5rem,4.5vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:.35rem}
+h1 span{color:#4ADE80}
+.header-sub{font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:1.4rem}
+.week-pills{display:flex;gap:.5rem;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.65);font-size:.72rem;padding:4px 13px;border-radius:20px}
+.pill.active{background:var(--purple-mid);border-color:var(--purple-mid);color:#fff;font-weight:700}
+
+/* LAYOUT */
+.main{max-width:900px;margin:0 auto;padding:0 1.25rem 3rem}
+.segment{margin-top:2.5rem}
+.segment-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:2px solid var(--purple-light)}
+.segment-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.segment-icon.js-icon{background:var(--purple-faint)}
+.segment-icon.emp-icon{background:var(--green-light)}
+.segment-title{font-size:1rem;font-weight:700;color:var(--gray-900)}
+.segment-sub{font-size:.75rem;color:var(--gray-500);margin-top:1px}
+.seg-label{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:.85rem}
+.seg-label.green{color:var(--green)}
+.divider{height:1px;background:var(--gray-200);margin:2.5rem 0}
+
+/* KPI CARDS */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.85rem;margin-bottom:1.5rem}
+.kpi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem 1.1rem;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi.purple::after{background:var(--purple-mid)}
+.kpi.green::after{background:var(--green)}
+.kpi.red::after{background:var(--red)}
+.kpi-label{font-size:.68rem;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.kpi-value{font-size:1.8rem;font-weight:700;color:var(--gray-900);line-height:1;margin-bottom:.4rem}
+.kpi-w2{font-size:.72rem;color:var(--gray-400);margin-bottom:.35rem}
+.badge-sm{display:inline-flex;align-items:center;gap:3px;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:20px}
+.up{background:var(--green-light);color:var(--green-dark)}
+.down{background:var(--red-light);color:var(--red)}
+
+/* CHART */
+.chart-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem}
+.chart-card h3{font-size:.82rem;font-weight:700;color:var(--gray-700);margin-bottom:.2rem}
+.chart-card p{font-size:.73rem;color:var(--gray-500);margin-bottom:.9rem}
+.chart-wrap{position:relative;width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:.7rem}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:.71rem;color:var(--gray-500)}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+
+/* FUNNEL BARS */
+.funnel{display:flex;flex-direction:column;gap:0}
+.funnel-row{display:flex;align-items:center;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--gray-100);flex-wrap:wrap}
+.funnel-row:last-child{border-bottom:none}
+.funnel-name{font-size:.78rem;color:var(--gray-700);min-width:180px;flex:1}
+.funnel-bar-wrap{flex:2;min-width:100px}
+.funnel-bar-bg{background:var(--gray-100);border-radius:4px;height:7px;overflow:hidden}
+.funnel-fill{height:100%;border-radius:4px}
+.funnel-nums{font-size:.73rem;display:flex;gap:.6rem;align-items:center;min-width:100px}
+.fn-w2{color:var(--gray-400)}
+.fn-arrow{color:var(--gray-300);font-size:.65rem}
+.fn-w3{font-weight:700;color:var(--gray-900)}
+.funnel-pct{font-size:.72rem;font-weight:700;min-width:52px;text-align:right}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.data-table thead tr{border-bottom:2px solid var(--purple-light)}
+.data-table thead th{text-align:left;padding:.45rem .6rem;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--purple-mid)}
+.data-table thead th.right{text-align:right}
+.data-table thead th.green-th{color:var(--green)}
+.data-table tbody tr{border-bottom:1px solid var(--gray-100)}
+.data-table tbody tr:last-child{border-bottom:none}
+.data-table tbody td{padding:.5rem .6rem;color:var(--gray-700)}
+.data-table tbody td.right{text-align:right}
+.data-table tbody td.w2{text-align:right;color:var(--gray-400)}
+.data-table tbody td.w3{text-align:right;font-weight:700;color:var(--gray-900)}
+.data-table tbody td.pos{text-align:right;font-weight:700;color:var(--green)}
+.data-table tbody td.neg{text-align:right;font-weight:700;color:var(--red)}
+
+/* INSIGHT */
+.insight{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:.9rem 1.1rem;border-left:3px solid var(--purple-mid);margin-bottom:.75rem;font-size:.8rem;color:var(--gray-600);line-height:1.65}
+.insight.green-ins{border-left-color:var(--green)}
+.insight.red-ins{border-left-color:var(--red)}
+.insight strong{color:var(--gray-900);font-weight:700}
+.insight-title{font-size:.78rem;font-weight:700;color:var(--gray-900);margin-bottom:.25rem}
+
+/* FOOTER */
+.footer{background:var(--gray-900);color:rgba(255,255,255,.45);text-align:center;padding:1.4rem 1rem;font-size:.72rem;margin-top:3rem}
+.footer strong{color:rgba(255,255,255,.75)}
+
+/* RESPONSIVE */
+@media(max-width:560px){
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .funnel-name{min-width:140px}
+}
+@media(max-width:360px){
+  .kpi-grid{grid-template-columns:1fr}
+  .kpi-value{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-row">
+      <div class="logo">next<span>jobz</span></div>
+      <div class="badge">Weekly Report</div>
+    </div>
+    <h1>Weekly Growth Report,<br><span>Week 3 · Apr 19–25, 2026</span></h1>
+    <p class="header-sub">Week 2 (Apr 12–18) vs Week 3 (Apr 19–25) · Internal distribution</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  SEGMENT 1 — JOBSEEKER                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="segment">
+    <div class="segment-header">
+      <div class="segment-icon js-icon">👤</div>
+      <div>
+        <div class="segment-title">Part 1 — Jobseeker Performance</div>
+        <div class="segment-sub">New visitors · registrations · CV builds · applications</div>
+      </div>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="seg-label">At a glance — Week 3</div>
+    <div class="kpi-grid">
+      <div class="kpi purple">
+        <div class="kpi-label">New Visitors</div>
+        <div class="kpi-value">7,605</div>
+        <div class="kpi-w2">W2: 4,602</div>
+        <span class="badge-sm up">▲ +65.3%</span>
+      </div>
+      <div class="kpi purple">
+        <div class="kpi-label">JS Registrations</div>
+        <div class="kpi-value">2,436</div>
+        <div class="kpi-w2">W2: 1,432</div>
+        <span class="badge-sm up">▲ +70.1%</span>
+      </div>
+      <div class="kpi purple">
+        <div class="kpi-label">CV Build (0–50%)</div>
+        <div class="kpi-value">2,210</div>
+        <div class="kpi-w2">W2: 1,195</div>
+        <span class="badge-sm up">▲ +84.9%</span>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-label">CV Build (51–100%)</div>
+        <div class="kpi-value">226</div>
+        <div class="kpi-w2">W2: 237</div>
+        <span class="badge-sm down">▼ −4.6%</span>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Unique Applicants</div>
+        <div class="kpi-value">1,906</div>
+        <div class="kpi-w2">W2: 1,068</div>
+        <span class="badge-sm up">▲ +78.5%</span>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Jobs Applied To</div>
+        <div class="kpi-value">411</div>
+        <div class="kpi-w2">W2: 308</div>
+        <span class="badge-sm up">▲ +33.4%</span>
+      </div>
+    </div>
+
+    <!-- CHART: Visitor → Reg → CV → Apply -->
+    <div class="chart-card">
+      <h3>Jobseeker funnel — Week 2 vs Week 3</h3>
+      <p>New visitors through to job applications</p>
+      <div class="legend">
+        <span class="leg-item"><span class="leg-dot" style="background:#7C3AED"></span>Week 2 (Apr 12–18)</span>
+        <span class="leg-item"><span class="leg-dot" style="background:#4ADE80"></span>Week 3 (Apr 19–25)</span>
+      </div>
+      <div class="chart-wrap" style="height:260px">
+        <canvas id="jsChart" role="img" aria-label="Jobseeker funnel chart. New Visitors 4602 vs 7605. Registrations 1432 vs 2436. CV 0-50% 1195 vs 2210. CV 51-100% 237 vs 226. Unique Applicants 1068 vs 1906. Jobs Applied 308 vs 411.">New Visitors: 4602 (W2), 7605 (W3). Registrations: 1432 (W2), 2436 (W3). Unique Applicants: 1068 (W2), 1906 (W3).</canvas>
+      </div>
+    </div>
+
+    <!-- JOBSEEKER DATA TABLE -->
+    <div class="chart-card" style="overflow-x:auto">
+      <h3>Jobseeker metrics — full table</h3>
+      <p style="margin-bottom:.9rem">All six jobseeker data points with change</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="right">W2 · Apr 12–18</th>
+            <th class="right">W3 · Apr 19–25</th>
+            <th class="right">Change</th>
+            <th class="right">% Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>New Visitors</td><td class="w2">4,602</td><td class="w3">7,605</td><td class="pos">+3,003</td><td class="pos">+65.3%</td></tr>
+          <tr><td>JS Registrations</td><td class="w2">1,432</td><td class="w3">2,436</td><td class="pos">+1,004</td><td class="pos">+70.1%</td></tr>
+          <tr><td>CV Build (0–50%)</td><td class="w2">1,195</td><td class="w3">2,210</td><td class="pos">+1,015</td><td class="pos">+84.9%</td></tr>
+          <tr><td>CV Build (51–100%)</td><td class="w2">237</td><td class="w3">226</td><td class="neg">−11</td><td class="neg">−4.6%</td></tr>
+          <tr><td>Unique Applicants Applied</td><td class="w2">1,068</td><td class="w3">1,906</td><td class="pos">+838</td><td class="pos">+78.5%</td></tr>
+          <tr><td>Total Jobs Applied To</td><td class="w2">308</td><td class="w3">411</td><td class="pos">+103</td><td class="pos">+33.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- JOBSEEKER INSIGHTS -->
+    <div class="seg-label" style="margin-top:1.5rem">Key observations — jobseeker</div>
+    <div class="insight green-ins">
+      <div class="insight-title">Strong top-of-funnel momentum across all acquisition metrics</div>
+      New visitors jumped <strong style="color:#16A34A">+65%</strong> (4,602 → 7,605) and jobseeker registrations rose <strong style="color:#16A34A">+70%</strong> (1,432 → 2,436). This is the most significant week-over-week acquisition growth the platform has seen, likely driven by the post-Eid hiring cycle picking up pace.
+    </div>
+    <div class="insight">
+      <div class="insight-title">Partial CV builds surged — full completions did not follow</div>
+      CV builds at the 0–50% tier exploded <strong style="color:#16A34A">+85%</strong>, but completions at 51–100% actually fell <strong style="color:#DC2626">−4.6%</strong>. The CV completion rate dropped from <strong style="color:#DC2626">16.5% → 9.3%</strong> of registered users. A large cohort of new users is signing up but not finishing their profiles — this is an onboarding gap that could be closed with a simple nudge or reminder.
+    </div>
+    <div class="insight green-ins">
+      <div class="insight-title">Application activity surged — but average applications per applicant dipped slightly</div>
+      Unique applicants rose <strong style="color:#16A34A">+78.5%</strong> and total jobs applied to rose <strong style="color:#16A34A">+33.4%</strong>. The average applications per unique applicant went from <strong style="color:#DC2626">3.46 (W2) → 2.79 (W3)</strong> — meaning more people are applying, but each person is applying to slightly fewer jobs. This suggests broader intent but shallower exploration.
+    </div>
+  </div>
+
+  <!-- SEGMENT DIVIDER -->
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  SEGMENT 2 — EMPLOYER                  -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="segment">
+    <div class="segment-header">
+      <div class="segment-icon emp-icon">🏢</div>
+      <div>
+        <div class="segment-title">Part 2 — Employer Performance</div>
+        <div class="segment-sub">Company registrations · job listings · application engagement</div>
+      </div>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="seg-label green">At a glance — Week 3</div>
+    <div class="kpi-grid">
+      <div class="kpi red">
+        <div class="kpi-label">Registered Companies</div>
+        <div class="kpi-value">15</div>
+        <div class="kpi-w2">W2: 26</div>
+        <span class="badge-sm down">▼ −42.3%</span>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Total Published Jobs</div>
+        <div class="kpi-value">136</div>
+        <div class="kpi-w2">W2: 101</div>
+        <span class="badge-sm up">▲ +34.7%</span>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-label">Paid Jobs Published</div>
+        <div class="kpi-value">9</div>
+        <div class="kpi-w2">W2: 12</div>
+        <span class="badge-sm down">▼ −25.0%</span>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Free Jobs Published</div>
+        <div class="kpi-value">127</div>
+        <div class="kpi-w2">W2: 89</div>
+        <span class="badge-sm up">▲ +42.7%</span>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Unique Companies Viewed Applications</div>
+        <div class="kpi-value">24</div>
+        <div class="kpi-w2">W2: 21</div>
+        <span class="badge-sm up">▲ +14.3%</span>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-label">Total Applications Viewed</div>
+        <div class="kpi-value">104</div>
+        <div class="kpi-w2">W2: 159</div>
+        <span class="badge-sm down">▼ −34.6%</span>
+      </div>
+    </div>
+
+    <!-- EMPLOYER CHART -->
+    <div class="chart-card">
+      <h3>Employer metrics — Week 2 vs Week 3</h3>
+      <p>Company registrations, job listings and application engagement</p>
+      <div class="legend">
+        <span class="leg-item"><span class="leg-dot" style="background:#7C3AED"></span>Week 2 (Apr 12–18)</span>
+        <span class="leg-item"><span class="leg-dot" style="background:#16A34A"></span>Week 3 (Apr 19–25)</span>
+      </div>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="empChart" role="img" aria-label="Employer metrics chart comparing week 2 and week 3.">Registered Companies: 26 (W2), 15 (W3). Published Jobs: 101 (W2), 136 (W3). Paid: 12 (W2), 9 (W3). Free: 89 (W2), 127 (W3). Companies Viewed: 21 (W2), 24 (W3). App Views: 159 (W2), 104 (W3).</canvas>
+      </div>
+    </div>
+
+    <!-- EMPLOYER TABLE -->
+    <div class="chart-card" style="overflow-x:auto">
+      <h3>Employer metrics — full table</h3>
+      <p style="margin-bottom:.9rem">All six employer data points with change</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="right">W2 · Apr 12–18</th>
+            <th class="right green-th">W3 · Apr 19–25</th>
+            <th class="right">Change</th>
+            <th class="right">% Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Total Registered Companies</td><td class="w2">26</td><td class="w3">15</td><td class="neg">−11</td><td class="neg">−42.3%</td></tr>
+          <tr><td>Total Published Jobs</td><td class="w2">101</td><td class="w3">136</td><td class="pos">+35</td><td class="pos">+34.7%</td></tr>
+          <tr><td>Paid Jobs Published</td><td class="w2">12</td><td class="w3">9</td><td class="neg">−3</td><td class="neg">−25.0%</td></tr>
+          <tr><td>Free Jobs Published</td><td class="w2">89</td><td class="w3">127</td><td class="pos">+38</td><td class="pos">+42.7%</td></tr>
+          <tr><td>Unique Companies Viewed Applications</td><td class="w2">21</td><td class="w3">24</td><td class="pos">+3</td><td class="pos">+14.3%</td></tr>
+          <tr><td>Total Applications Viewed</td><td class="w2">159</td><td class="w3">104</td><td class="neg">−55</td><td class="neg">−34.6%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- EMPLOYER INSIGHTS -->
+    <div class="seg-label green" style="margin-top:1.5rem">Key observations — employer</div>
+    <div class="insight red-ins">
+      <div class="insight-title">Employer registrations dropped sharply — the most critical metric this week</div>
+      New company registrations fell <strong style="color:#DC2626">−42.3%</strong> (26 → 15). With jobseekers flooding the platform, a shrinking employer acquisition rate creates a growing supply-demand imbalance. This needs direct attention — targeted outreach to SMEs or a re-engagement campaign for employers who have not yet posted.
+    </div>
+    <div class="insight green-ins">
+      <div class="insight-title">Existing employers are posting more — total published jobs up +35%</div>
+      Despite fewer new registrations, total published jobs grew <strong style="color:#16A34A">+34.7%</strong> (101 → 136). This means existing employers on the platform became more active in Week 3, likely responding to the post-Eid hiring window. A good sign — but growth cannot depend on existing employers alone.
+    </div>
+    <div class="insight">
+      <div class="insight-title">Free listings growing fast — paid listings moving in the wrong direction</div>
+      Free listings grew <strong style="color:#16A34A">+42.7%</strong> (89 → 127) while paid listings dropped <strong style="color:#DC2626">−25%</strong> (12 → 9). The paid-to-total ratio fell from <strong style="color:#DC2626">11.9% → 6.6%</strong>. As job volume scales, converting active free employers to paid tiers is an important monetization lever to activate.
+    </div>
+    <div class="insight red-ins">
+      <div class="insight-title">Application view rate collapsed — employers are not reviewing enough</div>
+      More companies viewed applications (<strong style="color:#16A34A">+14.3%</strong>), but total application views dropped <strong style="color:#DC2626">−34.6%</strong> (159 → 104). Given that applicants surged <strong style="color:#16A34A">+78.5%</strong>, the ratio of application views to applications submitted is declining sharply. Employers may be overwhelmed or disengaged. Improving employer-side UX (smarter filtering, digest emails, alerts) could help here.
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>nextjobz</strong> · Weekly Growth Report · Week 3 · Apr 19–25, 2026 · Internal Distribution Only<br>
+  <span style="display:block;margin-top:3px">Data: Platform DB · Generated Apr 26, 2026</span>
+</div>
+
+<script>
+const P='#7C3AED', G='#16A34A', R='#DC2626';
+const tc='rgba(0,0,0,0.42)', gc='rgba(0,0,0,0.06)';
+const base={
+  responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{ticks:{color:tc,font:{family:'Arial',size:10},autoSkip:false},grid:{display:false},border:{display:false}},
+    y:{ticks:{color:tc,font:{family:'Arial',size:10}},grid:{color:gc},border:{display:false}}
+  }
+};
+
+new Chart(document.getElementById('jsChart'),{
+  type:'bar',
+  data:{
+    labels:['New Visitors','JS Registrations','CV 0–50%','CV 51–100%','Unique Applicants','Jobs Applied To'],
+    datasets:[
+      {label:'Week 2',data:[4602,1432,1195,237,1068,308],backgroundColor:P,borderRadius:3},
+      {label:'Week 3',data:[7605,2436,2210,226,1906,411],backgroundColor:'#4ADE80',borderRadius:3}
+    ]
+  },
+  options:{...base}
+});
+
+new Chart(document.getElementById('empChart'),{
+  type:'bar',
+  data:{
+    labels:['Registered\nCompanies','Published\nJobs','Paid\nListings','Free\nListings','Co. Viewed\nApps','Total App\nViews'],
+    datasets:[
+      {label:'Week 2',data:[26,101,12,89,21,159],backgroundColor:P,borderRadius:3},
+      {label:'Week 3',data:[15,136,9,127,24,104],backgroundColor:G,borderRadius:3}
+    ]
+  },
+  options:{...base}
+});
+
+</script>
+</body>
+</html>
