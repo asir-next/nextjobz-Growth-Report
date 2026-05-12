@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<title>nextjobz · Monthly Growth Report · April 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==============================
+   TOKENS
+============================== */
+:root {
+  --ink: #0b0a1a;
+  --ink-2: #1a1830;
+  --paper: #f7f6f1;
+  --paper-2: #ffffff;
+  --line: #e6e3dc;
+  --line-soft: #efece6;
+  --muted: #6b6878;
+  --brand: #3ee07f;
+  --brand-deep: #10b864;
+  --rose: #ef4f5a;
+  --rose-soft: #fde9eb;
+  --amber: #f59e0b;
+  --amber-soft: #fff4dc;
+  --green-soft: #e6f9ef;
+  --violet: #6b5cff;
+  --violet-soft: #ece9ff;
+
+  --gap: clamp(12px, 3vw, 20px);
+  --pad-x: clamp(16px, 5vw, 56px);
+  --pad-section: clamp(28px, 5vw, 48px);
+}
+
+/* ==============================
+   RESET + BASE
+============================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+/* ==============================
+   PAGE WRAPPER
+============================== */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: var(--paper-2);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+/* ==============================
+   HERO
+============================== */
+.hero {
+  position: relative;
+  background: linear-gradient(145deg, #06051a 0%, #0e0c2a 40%, #0a1a14 100%);
+  color: #fff;
+  padding: var(--pad-section) var(--pad-x) clamp(28px, 5vw, 48px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* layered gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-orb-1 {
+  width: 500px; height: 360px;
+  background: radial-gradient(circle, rgba(62,224,127,.28) 0%, transparent 70%);
+  top: -80px; right: -60px;
+}
+.hero-orb-2 {
+  width: 420px; height: 320px;
+  background: radial-gradient(circle, rgba(107,92,255,.32) 0%, transparent 70%);
+  bottom: -40px; left: -80px;
+}
+.hero-orb-3 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(0,180,255,.18) 0%, transparent 70%);
+  top: 40%; left: 42%;
+}
+
+/* dot grid overlay */
+.hero::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.12) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 80% 90% at 60% 40%, #000 10%, transparent 72%);
+  pointer-events: none;
+}
+
+/* floating SVG icon strip */
+.hero-icons {
+  position: absolute;
+  inset: 0; z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative; z-index: 1;
+  flex-wrap: wrap;
+}
+.logo {
+  font-family: 'Inter Tight';
+  font-weight: 800;
+  font-size: clamp(16px, 4vw, 20px);
+  letter-spacing: -.02em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.logo .a { color: #fff; }
+.logo .b { color: var(--brand); }
+.pill {
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: clamp(9px, 2.2vw, 11px);
+  letter-spacing: .14em;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.06);
+  white-space: nowrap;
+}
+.hero h1 {
+  font-family: 'Inter Tight';
+  font-weight: 800;
+  font-size: clamp(26px, 6.5vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  margin-top: clamp(20px, 4vw, 32px);
+  position: relative; z-index: 1;
+}
+.hero h1 .accent {
+  color: var(--brand);
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+.hero-sub {
+  margin-top: 10px;
+  color: rgba(255,255,255,.55);
+  font-size: clamp(11px, 2.5vw, 13px);
+  position: relative; z-index: 1;
+  line-height: 1.6;
+}
+
+/* Hero stats band */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: clamp(24px, 4vw, 36px);
+  position: relative; z-index: 1;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+.hero-stat {
+  padding: clamp(14px, 2.5vw, 20px) clamp(10px, 2vw, 18px) clamp(10px, 2vw, 16px) 0;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat .label {
+  font-size: clamp(9px, 1.8vw, 10px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.hero-stat .val {
+  font-family: 'Inter Tight';
+  font-weight: 800;
+  font-size: clamp(18px, 4vw, 34px);
+  letter-spacing: -.03em;
+  margin-top: clamp(4px, 1vw, 8px);
+  line-height: 1;
+}
+.hero-stat .delta {
+  font-family: 'JetBrains Mono';
+  font-size: clamp(9px, 1.8vw, 11px);
+  font-weight: 600;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.delta.up { color: var(--brand); }
+.delta.down { color: #ff8b94; }
+
+@media (max-width: 520px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hero-stat { padding-bottom: 14px; }
+  .hero-stat:nth-child(2) { border-right: none; }
+  .hero-stat:nth-child(3) { border-right: 1px solid rgba(255,255,255,.1); }
+}
+
+/* ==============================
+   SECTION WRAPPER
+============================== */
+.section {
+  padding: var(--pad-section) var(--pad-x) 8px;
+}
+.section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+.section-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.section-icon.jobseeker { background: var(--violet-soft); }
+.section-icon.employer  { background: var(--green-soft); }
+.section-title {
+  font-family: 'Inter Tight';
+  font-weight: 800;
+  font-size: clamp(17px, 4vw, 22px);
+  letter-spacing: -.02em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.section-title .num {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  margin-right: 6px;
+}
+.section-sub {
+  color: var(--muted);
+  font-size: clamp(11px, 2.5vw, 13px);
+  line-height: 1.5;
+}
+
+.kicker {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--violet);
+  margin: 0 0 14px;
+}
+.kicker.green { color: var(--brand-deep); }
+
+/* ==============================
+   METRIC CARDS GRID
+============================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+@media (max-width: 860px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 400px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  position: relative;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 16px 14px;
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 3px;
+  background: var(--line);
+}
+.card.up::before   { background: var(--brand); }
+.card.down::before { background: var(--rose); }
+.card.flat::before { background: var(--amber); }
+.card .clabel {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #7a7789;
+  line-height: 1.4;
+}
+.card .cval {
+  font-family: 'Inter Tight';
+  font-weight: 800;
+  font-size: clamp(24px, 4.5vw, 34px);
+  letter-spacing: -.03em;
+  margin-top: 8px;
+  line-height: 1;
+  color: #080716;
+}
+.card .cprev {
+  font-family: 'JetBrains Mono';
+  font-size: 11px;
+  color: #5a5768;
+  margin-top: 6px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono';
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+.badge.up   { background: #c6f4dc; color: #0a7a44; }
+.badge.down { background: #fdd8db; color: #c4222c; }
+.badge.flat { background: #fde68a; color: #854d0e; }
+
+/* ==============================
+   SPLIT 2-COL PANELS
+============================== */
+.split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--gap);
+  margin-top: clamp(24px, 4vw, 36px);
+}
+@media (max-width: 680px) {
+  .split { grid-template-columns: 1fr; }
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: clamp(16px, 3vw, 22px);
+  background: #fdfdfb;
+}
+.panel h3 {
+  font-family: 'Inter Tight';
+  font-size: clamp(13px, 3vw, 16px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.panel .ph {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+/* ==============================
+   BAR ROWS (inside panels)
+============================== */
+.bar-row {
+  display: grid;
+  grid-template-columns: 96px 1fr 70px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.bar-row:last-child { margin-bottom: 0; }
+.bar-row .blbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: #333041;
+  line-height: 1.3;
+}
+.bar-track {
+  position: relative;
+  height: 20px;
+  background: var(--line-soft);
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 0;
+}
+.bar-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 7px;
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  font-family: 'JetBrains Mono';
+  white-space: nowrap;
+  overflow: hidden;
+}
+.bar-fill.mar     { background: linear-gradient(90deg, #b8b0ff, #c9c2ff); color: #3a2faa; }
+.bar-fill.apr     { background: linear-gradient(90deg, var(--violet), #8b7dff); }
+.bar-fill.emp-mar { background: linear-gradient(90deg, #a3e8c5, #b8eed1); color: #0a5d36; }
+.bar-fill.emp-apr { background: linear-gradient(90deg, var(--brand-deep), #2dc878); }
+.bar-val {
+  font-family: 'JetBrains Mono';
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+  color: #333041;
+  line-height: 1.4;
+}
+.bar-delta { font-family: 'JetBrains Mono'; font-size: 10px; }
+.bar-delta.up   { color: var(--brand-deep); }
+.bar-delta.down { color: var(--rose); }
+
+@media (max-width: 400px) {
+  .bar-row { grid-template-columns: 80px 1fr 64px; gap: 7px; }
+  .bar-row .blbl { font-size: 10px; }
+}
+
+/* ==============================
+   FUNNEL ROWS
+============================== */
+.funnel-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 52px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.funnel-row:last-child { margin-bottom: 0; }
+.funnel-row .flbl { font-size: 11px; font-weight: 600; color: #333041; line-height: 1.3; }
+.funnel-bar {
+  height: 32px;
+  background: linear-gradient(90deg, var(--violet), var(--brand-deep));
+  border-radius: 6px;
+  display: flex; align-items: center; padding: 0 10px;
+  color: #fff; font-family: 'JetBrains Mono'; font-size: 11px; font-weight: 700;
+  white-space: nowrap; overflow: hidden;
+  min-width: 36px;
+}
+.funnel-row .fpct {
+  font-family: 'JetBrains Mono';
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+}
+
+@media (max-width: 400px) {
+  .funnel-row { grid-template-columns: 90px 1fr 44px; gap: 7px; }
+}
+
+/* ==============================
+   LEGEND
+============================== */
+.legend {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-size: 11px; color: var(--muted);
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+.swatch {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ==============================
+   TABLES — fully mobile-safe
+============================== */
+.top-table {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: clamp(24px, 4vw, 36px);
+}
+
+/* On mobile, render as stacked cards instead of a table */
+.top-table table { width: 100%; border-collapse: collapse; }
+.top-table th {
+  text-align: left;
+  padding: 11px 16px;
+  font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--muted);
+  background: #fafaf6;
+  border-bottom: 1px solid var(--line);
+}
+.top-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.top-table tr:last-child td { border-bottom: none; }
+
+/* On narrow screens, break 4-col table into 2 stacked blocks */
+@media (max-width: 640px) {
+  .top-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .top-table::before {
+    content: "← scroll to see more";
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 6px 16px;
+    background: #fafaf6;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: .08em;
+  }
+  .top-table table { min-width: 560px; }
+}
+
+.rank {
+  display: inline-grid; place-items: center;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--ink); color: #fff;
+  font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 700;
+  margin-right: 7px; flex-shrink: 0;
+  vertical-align: middle;
+}
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--violet-soft); color: var(--violet);
+  font-family: 'JetBrains Mono'; font-size: 11px; font-weight: 600;
+  white-space: nowrap;
+}
+.chip.g { background: var(--green-soft); color: var(--brand-deep); }
+
+/* ==============================
+   INSIGHT CARDS
+============================== */
+.insights { margin-top: clamp(24px, 4vw, 36px); }
+.insight {
+  background: #fafaf6;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--line);
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin-bottom: 10px;
+}
+.insight:last-child { margin-bottom: 0; }
+.insight.good  { border-left-color: var(--brand-deep); }
+.insight.bad   { border-left-color: var(--rose); }
+.insight.watch { border-left-color: var(--amber); }
+.insight.note  { border-left-color: var(--violet); }
+.insight h4 {
+  font-family: 'Inter Tight';
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+.insight p {
+  color: #333041;
+  font-size: clamp(12px, 2.5vw, 13px);
+  line-height: 1.65;
+}
+.hi-g {
+  color: var(--brand-deep); font-weight: 700;
+  font-family: 'JetBrains Mono'; font-size: 12px;
+}
+.hi-r {
+  color: var(--rose); font-weight: 700;
+  font-family: 'JetBrains Mono'; font-size: 12px;
+}
+
+/* ==============================
+   DIVIDER
+============================== */
+.big-divider {
+  margin: clamp(32px, 6vw, 56px) var(--pad-x) 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+.footer {
+  margin-top: clamp(32px, 6vw, 48px);
+  background: var(--ink);
+  color: rgba(255,255,255,.6);
+  padding: 20px var(--pad-x);
+  font-size: 11px;
+  letter-spacing: .05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.footer .left b { color: #fff; font-weight: 700; }
+.footer .right {
+  font-family: 'JetBrains Mono';
+  font-size: 10px;
+  color: rgba(255,255,255,.4);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <!-- gradient orbs -->
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <!-- floating decorative icons -->
+  <div class="hero-icons">
+    <!-- briefcase top-right -->
+    <svg style="position:absolute;top:18px;right:clamp(60px,14vw,180px);opacity:.13;width:clamp(52px,8vw,88px);height:auto;transform:rotate(8deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="22" width="48" height="34" rx="5" stroke="#3ee07f" stroke-width="3.5"/>
+      <path d="M22 22V16a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6" stroke="#3ee07f" stroke-width="3.5"/>
+      <line x1="8" y1="38" x2="56" y2="38" stroke="#3ee07f" stroke-width="3"/>
+    </svg>
+
+    <!-- person/user mid-right -->
+    <svg style="position:absolute;top:38%;right:clamp(16px,6vw,70px);opacity:.10;width:clamp(38px,5.5vw,64px);height:auto;transform:rotate(-6deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="22" r="12" stroke="#a78bfa" stroke-width="3.5"/>
+      <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#a78bfa" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>
+
+    <!-- chart/bar trending top-center-right -->
+    <svg style="position:absolute;top:14px;left:46%;opacity:.09;width:clamp(44px,6vw,74px);height:auto;transform:rotate(-4deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="34" width="12" height="22" rx="2" stroke="#3ee07f" stroke-width="3"/>
+      <rect x="26" y="22" width="12" height="34" rx="2" stroke="#3ee07f" stroke-width="3"/>
+      <rect x="46" y="10" width="12" height="46" rx="2" stroke="#3ee07f" stroke-width="3"/>
+    </svg>
+
+    <!-- magnifying glass / search bottom-right -->
+    <svg style="position:absolute;bottom:28px;right:clamp(30px,10vw,130px);opacity:.09;width:clamp(36px,5vw,60px);height:auto;transform:rotate(14deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="27" cy="27" r="16" stroke="#6b5cff" stroke-width="3.5"/>
+      <line x1="39" y1="39" x2="56" y2="56" stroke="#6b5cff" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>
+
+    <!-- star / growth marker bottom-left -->
+    <svg style="position:absolute;bottom:20px;left:38%;opacity:.08;width:clamp(28px,4vw,48px);height:auto" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 6l6.18 12.53 13.82 2.01-10 9.75 2.36 13.75L32 37.77l-12.36 6.27 2.36-13.75-10-9.75 13.82-2.01L32 6z" stroke="#3ee07f" stroke-width="3" stroke-linejoin="round"/>
+    </svg>
+
+    <!-- building / company icon far left-center -->
+    <svg style="position:absolute;top:28%;left:clamp(-10px,1vw,10px);opacity:.07;width:clamp(42px,5.5vw,68px);height:auto;transform:rotate(4deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="12" width="44" height="46" rx="3" stroke="#a78bfa" stroke-width="3.2"/>
+      <rect x="20" y="28" width="8" height="8" rx="1" stroke="#a78bfa" stroke-width="2.5"/>
+      <rect x="36" y="28" width="8" height="8" rx="1" stroke="#a78bfa" stroke-width="2.5"/>
+      <rect x="20" y="44" width="8" height="14" rx="1" stroke="#a78bfa" stroke-width="2.5"/>
+      <line x1="10" y1="22" x2="54" y2="22" stroke="#a78bfa" stroke-width="2.5"/>
+    </svg>
+
+    <!-- arrow up-right trend -->
+    <svg style="position:absolute;bottom:50px;left:clamp(60px,12vw,160px);opacity:.07;width:clamp(32px,4.5vw,56px);height:auto;transform:rotate(-8deg)" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 52L52 12M52 12H28M52 12V36" stroke="#3ee07f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="hero-top">
+    <div class="pill">Monthly Report · Apr 2026</div>
+  </div>
+  <h1>Monthly Growth Report,<br/><span class="accent">April</span> 2026</h1>
+  <div class="hero-sub">April 1 – 30, 2026 &nbsp;·&nbsp; vs March 2026 &nbsp;·&nbsp; Internal distribution only</div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="label">Jobseeker Registrations</div>
+      <div class="val">8,927</div>
+      <div class="delta up">▲ +77.3% MoM</div>
+    </div>
+    <div class="hero-stat">
+      <div class="label">Active Applicants</div>
+      <div class="val">7,689</div>
+      <div class="delta up">▲ +384.8% MoM</div>
+    </div>
+    <div class="hero-stat">
+      <div class="label">Jobs Published</div>
+      <div class="val">550</div>
+      <div class="delta up">▲ +56.3% MoM</div>
+    </div>
+    <div class="hero-stat">
+      <div class="label">Registered Companies</div>
+      <div class="val">88</div>
+      <div class="delta up">▲ +83.3% MoM</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PART 1 — JOBSEEKER ============ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-icon jobseeker">👤</div>
+    <div>
+      <div class="section-title"><span class="num">01 —</span>Jobseeker Performance</div>
+      <div class="section-sub">Registrations · experience mix · application activity · engagement</div>
+    </div>
+  </div>
+
+  <div class="kicker">At a glance — April 2026</div>
+
+  <div class="grid">
+    <div class="card down">
+      <div class="clabel">New Users (GA)</div>
+      <div class="cval">37,254</div>
+      <div class="cprev">Mar: 41,374</div>
+      <span class="badge down">▼ −10.0%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Jobs with 10+ Apps</div>
+      <div class="cval">280</div>
+      <div class="cprev">Mar: 117</div>
+      <span class="badge up">▲ +139.3%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Jobs with 1–10 Apps</div>
+      <div class="cval">226</div>
+      <div class="cprev">Mar: 164</div>
+      <span class="badge up">▲ +37.8%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Jobs with 0 Applicants</div>
+      <div class="cval">48</div>
+      <div class="cprev">Mar: 75</div>
+      <span class="badge up">▼ −36.0% ✓</span>
+    </div>
+    <div class="card down">
+      <div class="clabel">Avg. Engagement</div>
+      <div class="cval">2m 16s</div>
+      <div class="cprev">Mar: 2m 52s</div>
+      <span class="badge down">▼ −20.9%</span>
+    </div>
+    <div class="card down">
+      <div class="clabel">Bounce Rate</div>
+      <div class="cval">31.10%</div>
+      <div class="cprev">Mar: 26.90%</div>
+      <span class="badge down">▲ +4.2 pp</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Experience 0–2 yrs</div>
+      <div class="cval">7,706</div>
+      <div class="cprev">Mar: 3,950 · 86.3% of all reg.</div>
+      <span class="badge up">▲ +95.1%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Experience 5+ yrs</div>
+      <div class="cval">595</div>
+      <div class="cprev">Mar: 562 · only 6.7% of reg.</div>
+      <span class="badge up">▲ +5.9%</span>
+    </div>
+  </div>
+
+  <!-- Funnel + Experience -->
+  <div class="split">
+    <div class="panel">
+      <h3>April acquisition funnel</h3>
+      <div class="ph">From site visit → application. Drop-off at each step.</div>
+
+      <div class="funnel-row">
+        <div class="flbl">New users (GA)</div>
+        <div class="funnel-bar" style="width:100%;">37,254</div>
+        <div class="fpct">100%</div>
+      </div>
+      <div class="funnel-row">
+        <div class="flbl">Registered</div>
+        <div class="funnel-bar" style="width:24%;background:linear-gradient(90deg,#8b7dff,#6b5cff);">8,927</div>
+        <div class="fpct">24.0%</div>
+      </div>
+      <div class="funnel-row">
+        <div class="flbl">Applied to jobs</div>
+        <div class="funnel-bar" style="width:20.6%;background:linear-gradient(90deg,#5fd49a,#10b864);">7,689</div>
+        <div class="fpct">20.6%</div>
+      </div>
+      <div class="funnel-row">
+        <div class="flbl">Jobs with 10+ apps</div>
+        <div class="funnel-bar" style="width:8%;background:linear-gradient(90deg,#10b864,#0a8c4d);">280</div>
+        <div class="fpct">—</div>
+      </div>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--violet)"></span>Visitor → applicant journey</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Experience mix of registrants</h3>
+      <div class="ph">Apr vs Mar. 86% of sign-ups are entry-level.</div>
+
+      <div class="bar-row">
+        <div class="blbl">0–2 yrs</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill apr" style="width:100%;">Apr 7,706</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill mar" style="width:51.3%;">Mar 3,950</div></div>
+        </div>
+        <div class="bar-val">86.3%<br/><span class="bar-delta up">▲ +95%</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">2–5 yrs</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill apr" style="width:4.5%;">343</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill mar" style="width:3.8%;">290</div></div>
+        </div>
+        <div class="bar-val">3.8%<br/><span class="bar-delta up">▲ +18%</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">5–10 yrs</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill apr" style="width:4%;">305</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill mar" style="width:3.4%;">259</div></div>
+        </div>
+        <div class="bar-val">3.4%<br/><span class="bar-delta up">▲ +18%</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">10+ yrs</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill apr" style="width:3.8%;">290</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill mar" style="width:3.9%;">303</div></div>
+        </div>
+        <div class="bar-val">3.3%<br/><span class="bar-delta down">▼ −4%</span></div>
+      </div>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--violet)"></span>April</span>
+        <span><span class="swatch" style="background:#c9c2ff"></span>March</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top jobs table -->
+  <div class="top-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:38%;">Top jobs by applications · April</th>
+          <th>Apps</th>
+          <th style="width:38%;">Top jobs · March</th>
+          <th>Apps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="rank">1</span>Junior Web Developer</td>
+          <td><span class="chip g">302</span></td>
+          <td><span class="rank">1</span>NextGen Internship — Akij Resource</td>
+          <td><span class="chip">2,363</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank">2</span>Project Manager / Country Head / GM / Head of BD</td>
+          <td><span class="chip g">248</span></td>
+          <td><span class="rank">2</span>Assistant Merchandiser / Executive II — USA</td>
+          <td><span class="chip">202</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank">3</span>Country Manager</td>
+          <td><span class="chip g">190</span></td>
+          <td><span class="rank">3</span>Management Trainee</td>
+          <td><span class="chip">124</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Insights -->
+  <div class="kicker" style="margin-top:32px;">Key observations — Jobseeker</div>
+  <div class="insights">
+    <div class="insight good">
+      <h4>Applicant activity exploded — platform demand is real now</h4>
+      <p>Unique applicants jumped from 1,586 → <span class="hi-g">7,689 (+384.8%)</span> and jobs with 10+ apps more than doubled (117 → 280). Jobs with 1–10 applicants also grew <span class="hi-g">164 → 226 (+37.8%)</span> — demand is broad, not just concentrated in a few listings.</p>
+    </div>
+    <div class="insight good">
+      <h4>Fewer dead listings — job coverage is improving</h4>
+      <p>Jobs with zero applicants fell <span class="hi-g">75 → 48 (−36%)</span> even as the job pool grew 56%. Employers are seeing real candidate flow for the first time.</p>
+    </div>
+    <div class="insight watch">
+      <h4>Engagement depth dipped — users apply and bounce</h4>
+      <p>Avg. session dropped <span class="hi-r">2m 52s → 2m 16s (−20.9%)</span> and bounce rate rose to <span class="hi-r">31.1%</span>. Quick A/B test: show related jobs + a post-apply profile prompt to extend session depth.</p>
+    </div>
+    <div class="insight note">
+      <h4>Platform is entry-level heavy — senior talent gap is widening</h4>
+      <p><b>86.3%</b> of April registrants have 0–2 years of experience. But the top applied roles (Country Manager, Project Manager) are senior. Targeted outreach for mid-to-senior talent should be the next acquisition lever.</p>
+    </div>
+  </div>
+</section>
+
+<div class="big-divider"></div>
+
+<!-- ============ PART 2 — EMPLOYER ============ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-icon employer">🏢</div>
+    <div>
+      <div class="section-title"><span class="num">02 —</span>Employer Performance</div>
+      <div class="section-sub">Company sign-ups · job listings · shortlisting activity</div>
+    </div>
+  </div>
+
+  <div class="kicker green">At a glance — April 2026</div>
+
+  <div class="grid">
+    <div class="card down">
+      <div class="clabel">Dormant Companies</div>
+      <div class="cval">26</div>
+      <div class="cprev">Mar: 11 · registered, no post</div>
+      <span class="badge down">▲ +136.4%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Active Companies</div>
+      <div class="cval">62</div>
+      <div class="cprev">Mar: 37 · posted at least 1 job</div>
+      <span class="badge up">▲ +67.6%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Companies Shortlisting</div>
+      <div class="cval">5</div>
+      <div class="cprev">Mar: 3</div>
+      <span class="badge up">▲ +66.7%</span>
+    </div>
+    <div class="card up">
+      <div class="clabel">Jobs with Shortlisting</div>
+      <div class="cval">6</div>
+      <div class="cprev">Mar: 4</div>
+      <span class="badge up">▲ +50.0%</span>
+    </div>
+    <div class="card flat">
+      <div class="clabel">Jobs / Active Company</div>
+      <div class="cval">8.87</div>
+      <div class="cprev">Mar: 9.51</div>
+      <span class="badge flat">▼ −6.7%</span>
+    </div>
+    <div class="card down">
+      <div class="clabel">Shortlist Rate</div>
+      <div class="cval">5.7%</div>
+      <div class="cprev">Mar: 6.3% · shortlisting ÷ registered</div>
+      <span class="badge down">▼ −0.6 pp</span>
+    </div>
+  </div>
+
+  <!-- Company activation + industry shift -->
+  <div class="split">
+    <div class="panel">
+      <h3>Company activation — Mar vs Apr</h3>
+      <div class="ph">Of all registered companies, how many actually posted?</div>
+
+      <div class="bar-row">
+        <div class="blbl">March active</div>
+        <div><div class="bar-track"><div class="bar-fill emp-mar" style="width:77%;">37 posted</div></div></div>
+        <div class="bar-val">77.1%<br/><span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono'">of 48</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">April active</div>
+        <div><div class="bar-track"><div class="bar-fill emp-apr" style="width:70.4%;">62 posted</div></div></div>
+        <div class="bar-val">70.4%<br/><span class="bar-delta down">▼ −6.7 pp</span></div>
+      </div>
+
+      <div class="bar-row" style="margin-top:16px;">
+        <div class="blbl" style="color:var(--rose);">Mar dormant</div>
+        <div><div class="bar-track"><div class="bar-fill" style="width:23%;background:#fbb4b9;color:#7c1d23;">11</div></div></div>
+        <div class="bar-val">22.9%</div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl" style="color:var(--rose);">Apr dormant</div>
+        <div><div class="bar-track"><div class="bar-fill" style="width:29.6%;background:var(--rose);">26</div></div></div>
+        <div class="bar-val">29.6%<br/><span class="bar-delta down">▲ +6.7 pp</span></div>
+      </div>
+
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--brand-deep)"></span>Posted jobs</span>
+        <span><span class="swatch" style="background:var(--rose)"></span>Dormant</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Top hiring categories — job volume</h3>
+      <div class="ph">Apr vs Mar job postings by industry.</div>
+
+      <div class="bar-row">
+        <div class="blbl">Marketing / Sales</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill emp-apr" style="width:100%;">Apr 92</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill emp-mar" style="width:69.5%;">Mar 64</div></div>
+        </div>
+        <div class="bar-val"><span class="bar-delta up">▲ +44%</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">Garments / RMG</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill emp-apr" style="width:45.6%;">Apr 42</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-track"></div></div>
+        </div>
+        <div class="bar-val"><span class="bar-delta up">▲ NEW</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">Engineering</div>
+        <div>
+          <div class="bar-track"><div class="bar-fill emp-apr" style="width:42.3%;">Apr 39</div></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill emp-mar" style="width:26%;">Mar 24</div></div>
+        </div>
+        <div class="bar-val"><span class="bar-delta up">▲ +63%</span></div>
+      </div>
+      <div class="bar-row">
+        <div class="blbl">Production / QC</div>
+        <div>
+          <div class="bar-track" style="background:var(--rose-soft);"></div>
+          <div class="bar-track" style="margin-top:4px;"><div class="bar-fill emp-mar" style="width:34.7%;">Mar 32</div></div>
+        </div>
+        <div class="bar-val"><span class="bar-delta down">▼ exited</span></div>
+      </div>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--brand-deep)"></span>April</span>
+        <span><span class="swatch" style="background:#b8eed1"></span>March</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top company industries -->
+  <div class="top-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:38%;">Top industries by company reg. · April</th>
+          <th>Cos.</th>
+          <th style="width:38%;">Top industries · March</th>
+          <th>Cos.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="rank">1</span>Education</td>
+          <td><span class="chip g">8</span></td>
+          <td><span class="rank">1</span>IT Services & Consulting</td>
+          <td><span class="chip">10</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank">2</span>IT Services & Consulting</td>
+          <td><span class="chip g">8</span></td>
+          <td><span class="rank">2</span>Manufacturing</td>
+          <td><span class="chip">5</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank">3</span>Engineering & Construction</td>
+          <td><span class="chip g">6</span></td>
+          <td><span class="rank">3</span>Medical Services / Hospital</td>
+          <td><span class="chip">4</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Insights -->
+  <div class="kicker green" style="margin-top:32px;">Key observations — Employer</div>
+  <div class="insights">
+    <div class="insight good">
+      <h4>Supply and demand grew together — marketplace is functioning</h4>
+      <p>Company registrations <span class="hi-g">+83.3%</span> (48 → 88) and published jobs <span class="hi-g">+56.3%</span> (352 → 550). With 7,689 active applicants on the other side, April is the first month where both sides scaled in sync.</p>
+    </div>
+    <div class="insight bad">
+      <h4>Dormant companies doubled — activation is the leak</h4>
+      <p>26 companies registered but never posted — <span class="hi-r">+136%</span> vs March's 11. That's <b>29.6%</b> of new sign-ups going cold. A simple "post your first job in 5 min" onboarding flow + 7-day nudge email is priority #1.</p>
+    </div>
+    <div class="insight watch">
+      <h4>Shortlisting barely moved — applications are going unseen</h4>
+      <p>Only <span class="hi-r">5 of 88 companies (5.7%)</span> shortlisted any candidate against 7,689 applicants. Employer inbox UX and notification triggers need an overhaul before this becomes a retention issue for both sides.</p>
+    </div>
+    <div class="insight note">
+      <h4>Industry mix diversified — Garments & Education entered top 3</h4>
+      <p>March was IT-dominant. April brought Education, Engineering & Construction and Garments/RMG (42 jobs, brand new). Broader industry coverage reduces concentration risk and opens new BD channels.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="left"><b>nextjobz</b> &nbsp;·&nbsp; Monthly Growth Report &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Internal Distribution Only</div>
+  <div class="right">Data: Platform DB &nbsp;·&nbsp; Generated May 11, 2026</div>
+</footer>
+
+</div><!-- end .page -->
+</body>
+</html>
